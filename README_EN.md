@@ -9,6 +9,8 @@ Simple little homepage, had enough of the original one and made a new one
 
 >The logo font on the home page has been compressed, so if you use a font other than this logo, it will change back to the default font, Here is the [full font](https://file.4everland.app/font/Other/Pacifico-Regular.ttf)  
 
+### This project is based on the project of a big boss. 
+- [imsyy](https://github.com/imsyy/home)  The original project address
 ### Demo
 
 >Due to CDN caching, you may need `Ctrl` + `F5` to force a browser cache refresh to see the latest results
