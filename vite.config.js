@@ -93,7 +93,7 @@ export default ({ mode }) =>
     ],
     server: {
       port: "3000",
-      open: true,
+      open: false, // 是否自动打开浏览器
     },
     resolve: {
       alias: [
