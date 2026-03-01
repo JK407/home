@@ -41,6 +41,17 @@
           </div>
         </Transition>
       </div>
+      <form class="bing-search" @submit.prevent="handleSearch">
+        <input
+          v-model="searchQuery"
+          type="search"
+          :placeholder="hotPlaceholder"
+          aria-label="Bing 搜索"
+          enterkeyhint="search"
+          inputmode="search"
+          @keyup.enter="handleSearch"
+        />
+      </form>
     </div>
   </div>
 </template>
@@ -55,6 +66,18 @@ const store = mainStore();
 const socialLinks = socialLinksData;
 const defaultWelcome = "(=^･ω･^=) hello world，ようこそ！毂梁蔚竹のホームへ";
 const hoveredTip = ref("");
+
+// 热点占位
+const hotTopics = ref([
+  "热点：Sora、AI 视频",
+  "热点：大模型与搜索",
+  "热点：AIGC 创作",
+  "热点：AI Agent 应用",
+  "热点：前端新趋势",
+]);
+const hotIndex = ref(0);
+const hotPlaceholder = computed(() => hotTopics.value[hotIndex.value] || "正在加载热点...");
+const hotInterval = ref(null);
 
 // 时间
 const currentTime = ref({});
@@ -78,6 +101,16 @@ const fetchHitokoto = async () => {
     ElMessage({ message: "一言获取失败" });
   }
 };
+const searchQuery = ref("");
+const handleSearch = () => {
+  const query = searchQuery.value.trim();
+  if (!query) {
+    ElMessage({ message: "请输入搜索关键词" });
+    return;
+  }
+  window.open(`https://www.bing.com/search?q=${encodeURIComponent(query)}`, "_blank");
+};
+
 const refreshHitokoto = () => {
   fetchHitokoto();
 };
@@ -87,11 +120,15 @@ onMounted(() => {
   fetchHitokoto();
   timeInterval.value = setInterval(updateTimeData, 1000);
   hitokotoInterval.value = setInterval(fetchHitokoto, 60000);
+  hotInterval.value = setInterval(() => {
+    hotIndex.value = (hotIndex.value + 1) % hotTopics.value.length;
+  }, 5000);
 });
 
 onBeforeUnmount(() => {
   clearInterval(timeInterval.value);
   clearInterval(hitokotoInterval.value);
+  clearInterval(hotInterval.value);
 });
 </script>
 
@@ -194,6 +231,7 @@ onBeforeUnmount(() => {
     align-items: center;
     gap: 2px;
     text-align: center;
+
     .date,
     .text {
       background-image: linear-gradient(120deg, #ff5f6d, #ffc371, #47cf73, #30cfd0, #5d54a4, #e64a19, #ff5f6d);
@@ -205,6 +243,7 @@ onBeforeUnmount(() => {
       animation: rainbow 8s linear infinite;
       text-shadow: 0 0 14px rgba(255, 255, 255, 0.35);
     }
+
     .date {
       font-family: "Pacifico-Regular";
       font-size: 1.25rem;
@@ -213,6 +252,7 @@ onBeforeUnmount(() => {
       font-weight: 700;
       text-shadow: 0 0 10px rgba(255, 255, 255, 0.45), 0 0 22px rgba(255, 153, 255, 0.35);
     }
+
     .text {
       font-size: 3.6rem;
       letter-spacing: 4px;
@@ -220,14 +260,50 @@ onBeforeUnmount(() => {
       text-shadow: 0 0 12px rgba(255, 255, 255, 0.5), 0 0 26px rgba(64, 255, 210, 0.35);
     }
   }
-    .hitokoto {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      margin-top: 4px;
+
+  .bing-search {
+    margin: 6px auto 2px;
+    width: 100%;
+    max-width: 760px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.38);
       color: #efefef;
-      cursor: pointer;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      font-size: 14px;
+
+      &::placeholder {
+        color: rgba(239, 239, 239, 0.7);
+      }
+
+      &:focus {
+        outline: none;
+        border-color: rgba(255, 255, 255, 0.32);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+        background: rgba(0, 0, 0, 0.48);
+      }
+    }
+  }
+
+  .hitokoto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+    color: #efefef;
+    cursor: pointer;
 
     .content {
       width: 100%;
@@ -238,6 +314,7 @@ onBeforeUnmount(() => {
       align-items: center;
       text-align: center;
     }
+
     .quote-line {
       display: flex;
       align-items: center;
@@ -245,6 +322,7 @@ onBeforeUnmount(() => {
       justify-content: center;
       flex-wrap: wrap;
     }
+
     .quote-text,
     .from,
     .quote-icon {
@@ -258,16 +336,19 @@ onBeforeUnmount(() => {
       animation: rainbow 9s linear infinite;
       text-shadow: 0 0 10px rgba(255, 255, 255, 0.32), 0 0 22px rgba(255, 153, 255, 0.25);
     }
+
     .quote-text {
       font-size: 1.28rem;
       line-height: 1.7;
       letter-spacing: 0.45px;
     }
+
     .quote-icon {
       filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
       color: transparent;
       -webkit-text-fill-color: transparent;
     }
+
     .from {
       font-size: 1.05rem;
       align-self: center;
