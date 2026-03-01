@@ -5,7 +5,6 @@
       <el-col :span="12">
         <div class="left">
           <Hitokoto />
-          <Music v-if="playerHasId" />
         </div>
       </el-col>
       <el-col :span="12">
@@ -21,7 +20,6 @@
               <span> {{ currentTime.hour }}:{{ currentTime.minute }}:{{ currentTime.second }}</span>
             </div>
           </div>
-          <Weather />
         </div>
       </el-col>
     </el-row>
@@ -31,18 +29,13 @@
 <script setup>
 import { getCurrentTime } from "@/utils/getTime";
 import { mainStore } from "@/store";
-import Music from "@/components/Music.vue";
 import Hitokoto from "@/components/Hitokoto.vue";
-import Weather from "@/components/Weather.vue";
 
 const store = mainStore();
 
 // 当前时间
 const currentTime = ref({});
 const timeInterval = ref(null);
-
-// 播放器 id
-const playerHasId = import.meta.env.VITE_SONG_ID;
 
 // 更新时间
 const updateTimeData = () => {
@@ -127,13 +120,15 @@ onBeforeUnmount(() => {
           letter-spacing: 2px;
           font-family: "UnidreamLED";
         }
-      }
-      .weather {
-        text-align: center;
-        width: 100%;
-        text-overflow: ellipsis;
-        overflow-x: hidden;
-        white-space: nowrap;
+        @media (min-width: 1201px) and (max-width: 1280px) {
+          font-size: 1rem;
+        }
+        @media (min-width: 911px) and (max-width: 992px) {
+          font-size: 1rem;
+          .text {
+            font-size: 2.75rem;
+          }
+        }
       }
     }
   }

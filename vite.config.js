@@ -93,7 +93,7 @@ export default ({ mode }) =>
     ],
     server: {
       port: "3000",
-      open: false, // 是否自动打开浏览器
+      open: true,
     },
     resolve: {
       alias: [
@@ -106,8 +106,9 @@ export default ({ mode }) =>
     css: {
       preprocessorOptions: {
         scss: {
-          charset: false,
-          additionalData: `@import "./src/style/global.scss";`,
+          api: 'modern',
+          additionalData: `@use "./src/style/global.scss" as *;`,
+          silenceDeprecations: ["legacy-js-api"],
         },
       },
     },

@@ -76,11 +76,9 @@ const siteUrl = computed(() => {
 const upData = reactive({
   new: [
     "采用 Vue 进行重构",
-    "音乐歌单支持快速自定义",
     "壁纸支持个性化设置",
-    "音乐播放器支持音量控制",
   ],
-  fix: ["修复天气 API", "时光胶囊显示错误", "移动端动画及细节", "图标更换为 IconPark"],
+  fix: ["时光胶囊显示错误", "移动端动画及细节", "图标更换为 IconPark"],
 });
 
 // 跳转源代码仓库
@@ -144,6 +142,23 @@ const jumpTo = (url) => {
         .sm {
           margin-left: 6px;
           font-size: 2rem;
+        }
+
+        @media (max-width: 990px) {
+          .bg {
+            font-size: 4.5rem;
+          }
+          .sm {
+            font-size: 1.7rem;
+          }
+        }
+        @media (max-width: 825px) {
+          .bg {
+            font-size: 3.8rem;
+          }
+          .sm {
+            font-size: 1.3rem;
+          }
         }
       }
 
