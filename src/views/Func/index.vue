@@ -96,6 +96,11 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss" scoped>
+@font-face {
+  font-family: "XingShu";
+  src: url("/font/xingshu.ttf") format("truetype");
+  font-display: swap;
+}
 .function {
   position: fixed;
   top: 11vh;
@@ -187,7 +192,7 @@ onBeforeUnmount(() => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 2px;
     text-align: center;
     .date,
     .text {
@@ -219,8 +224,8 @@ onBeforeUnmount(() => {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
-      margin-top: 8px;
+      gap: 10px;
+      margin-top: 4px;
       color: #efefef;
       cursor: pointer;
 
@@ -243,7 +248,7 @@ onBeforeUnmount(() => {
     .quote-text,
     .from,
     .quote-icon {
-      font-family: "Pacifico-Regular";
+      font-family: "XingShu", "Pacifico-Regular", cursive;
       background-image: linear-gradient(120deg, #ff5f6d, #ffc371, #47cf73, #30cfd0, #5d54a4, #e64a19, #ff5f6d);
       background-size: 300% 300%;
       background-clip: text;
