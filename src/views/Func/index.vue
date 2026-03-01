@@ -1,6 +1,7 @@
 <template>
   <div :class="store.mobileFuncState ? 'function mobile' : 'function'">
     <div class="time-card cards" @click.stop>
+      <div class="welcome">(=^･ω･^=) hello world，ようこそ！毂梁蔚竹のホームへ</div>
       <div class="time">
         <div class="date">
           <span>{{ currentTime.year }}&nbsp;年&nbsp;</span>
@@ -97,7 +98,7 @@ onBeforeUnmount(() => {
     max-width: 820px;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 14px;
     padding: 0 12px 10px;
     border-radius: 0;
     background: transparent !important;
@@ -114,6 +115,23 @@ onBeforeUnmount(() => {
       box-shadow: none !important;
       backdrop-filter: none !important;
     }
+  }
+  .welcome {
+    font-family: "Pacifico-Regular";
+    background-image: linear-gradient(120deg, #ff5f6d, #ffc371, #47cf73, #30cfd0, #5d54a4, #e64a19, #ff5f6d);
+    background-size: 300% 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow 9s linear infinite;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.32), 0 0 22px rgba(255, 153, 255, 0.25);
+    font-size: 1.18rem;
+    letter-spacing: 1.1px;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
   }
   .time {
     display: flex;
