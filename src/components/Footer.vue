@@ -14,15 +14,15 @@
       </span>
       <!-- 以下信息请不要修改哦 -->
       <span class="hidden">
-        &amp;&nbsp;Made&nbsp;by
+        Made&nbsp;by
         <a :href="config.github" target="_blank">
           {{ config.author }}
         </a>
       </span>
       <!-- 站点备案 -->
-      <span>
+      <span v-if="siteIcp">
         &amp;
-        <a v-if="siteIcp" href="https://beian.miit.gov.cn" target="_blank">
+        <a href="https://beian.miit.gov.cn" target="_blank">
           {{ siteIcp }}
         </a>
       </span>
@@ -72,6 +72,19 @@ const siteUrl = computed(() => {
   white-space: nowrap;
   .power {
     animation: fade 0.3s;
+    font-family: "Pacifico-Regular", "XingShu", cursive;
+    letter-spacing: 0.08em;
+    background-image: linear-gradient(120deg, #ff5f6d, #ffc371, #47cf73, #30cfd0, #5d54a4, #e64a19, #ff5f6d);
+    background-size: 300% 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow 9s linear infinite;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.32), 0 0 22px rgba(255, 153, 255, 0.25);
+    a {
+      color: inherit;
+    }
   }
   &.blur {
     backdrop-filter: blur(10px);
