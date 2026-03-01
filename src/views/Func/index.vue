@@ -1,7 +1,7 @@
 <template>
   <div :class="store.mobileFuncState ? 'function mobile' : 'function'">
     <div class="time-card cards" @click.stop>
-      <div class="welcome">(=^･ω･^=) hello world，ようこそ！毂梁蔚竹のホームへ</div>
+      <div class="welcome">{{ hoveredTip || defaultWelcome }}</div>
       <div class="welcome-links">
         <a
           v-for="item in socialLinks"
@@ -18,7 +18,6 @@
           <img :src="item.icon" :alt="item.name" />
         </a>
       </div>
-      <div class="welcome-tip" :class="{ empty: !hoveredTip }">{{ hoveredTip || ' ' }}</div>
       <div class="time">
         <div class="date">
           <span>{{ currentTime.year }}&nbsp;年&nbsp;</span>
@@ -54,6 +53,7 @@ import { mainStore } from "@/store";
 
 const store = mainStore();
 const socialLinks = socialLinksData;
+const defaultWelcome = "(=^･ω･^=) hello world，ようこそ！毂梁蔚竹のホームへ";
 const hoveredTip = ref("");
 
 // 时间
@@ -113,6 +113,7 @@ onBeforeUnmount(() => {
     padding: 0 1rem;
   }
   .time-card {
+    position: relative;
     pointer-events: auto;
     width: 100%;
     max-width: 820px;
@@ -180,29 +181,6 @@ onBeforeUnmount(() => {
       &:active {
         transform: scale(0.98);
       }
-    }
-  }
-  .welcome-tip {
-    margin-top: 6px;
-    text-align: center;
-    font-size: 1.02rem;
-    letter-spacing: 0.6px;
-    font-family: "Pacifico-Regular";
-    background-image: linear-gradient(120deg, #ff5f6d, #ffc371, #47cf73, #30cfd0, #5d54a4, #e64a19, #ff5f6d);
-    background-size: 300% 300%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    animation: rainbow 9s linear infinite;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.32), 0 0 22px rgba(255, 153, 255, 0.25);
-    transition: opacity 0.2s ease, margin-top 0.2s ease, max-height 0.2s ease;
-    max-height: 60px;
-    overflow: hidden;
-    &.empty {
-      opacity: 0;
-      max-height: 0;
-      margin-top: 0;
     }
   }
   .time {
