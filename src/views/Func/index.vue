@@ -2,6 +2,23 @@
   <div :class="store.mobileFuncState ? 'function mobile' : 'function'">
     <div class="time-card cards" @click.stop>
       <div class="welcome">(=^･ω･^=) hello world，ようこそ！毂梁蔚竹のホームへ</div>
+      <div class="welcome-links">
+        <a
+          v-for="item in socialLinks"
+          :key="item.name"
+          class="welcome-link"
+          :href="item.url"
+          target="_blank"
+          rel="noopener"
+          :title="item.tip"
+          :aria-label="item.tip"
+          @mouseenter="hoveredTip = item.tip"
+          @mouseleave="hoveredTip = ''"
+        >
+          <img :src="item.icon" :alt="item.name" />
+        </a>
+      </div>
+      <div class="welcome-tip" :class="{ empty: !hoveredTip }">{{ hoveredTip || ' ' }}</div>
       <div class="time">
         <div class="date">
           <span>{{ currentTime.year }}&nbsp;年&nbsp;</span>
@@ -32,9 +49,12 @@
 <script setup>
 import { getCurrentTime } from "@/utils/getTime";
 import { getHitokoto } from "@/api";
+import socialLinksData from "@/assets/socialLinks.json";
 import { mainStore } from "@/store";
 
 const store = mainStore();
+const socialLinks = socialLinksData;
+const hoveredTip = ref("");
 
 // 时间
 const currentTime = ref({});
@@ -98,7 +118,7 @@ onBeforeUnmount(() => {
     max-width: 820px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
     padding: 0 12px 10px;
     border-radius: 0;
     background: transparent !important;
@@ -126,12 +146,64 @@ onBeforeUnmount(() => {
     -webkit-text-fill-color: transparent;
     animation: rainbow 9s linear infinite;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.32), 0 0 22px rgba(255, 153, 255, 0.25);
-    font-size: 1.18rem;
-    letter-spacing: 1.1px;
+    font-size: 1.15rem;
+    letter-spacing: 1px;
     text-align: center;
     text-decoration: underline;
     text-decoration-thickness: 2px;
-    text-underline-offset: 4px;
+    text-underline-offset: 5px;
+  }
+  .welcome-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-top: -2px;
+    .welcome-link {
+      display: inline-flex;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 6px;
+      transition: transform 0.2s, background 0.2s;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.35));
+      }
+      &:hover {
+        transform: translateY(-2px) scale(1.05);
+        background: rgba(255, 255, 255, 0.12);
+      }
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+  .welcome-tip {
+    margin-top: 6px;
+    text-align: center;
+    font-size: 1.02rem;
+    letter-spacing: 0.6px;
+    font-family: "Pacifico-Regular";
+    background-image: linear-gradient(120deg, #ff5f6d, #ffc371, #47cf73, #30cfd0, #5d54a4, #e64a19, #ff5f6d);
+    background-size: 300% 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow 9s linear infinite;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.32), 0 0 22px rgba(255, 153, 255, 0.25);
+    transition: opacity 0.2s ease, margin-top 0.2s ease, max-height 0.2s ease;
+    max-height: 60px;
+    overflow: hidden;
+    &.empty {
+      opacity: 0;
+      max-height: 0;
+      margin-top: 0;
+    }
   }
   .time {
     display: flex;
