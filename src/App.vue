@@ -145,7 +145,8 @@ onBeforeUnmount(() => {
     .all {
       width: 100%;
       height: 100%;
-      padding: 0 0.75rem;
+      padding: clamp(220px, 32vh, 340px) 0.75rem 0;
+      box-sizing: border-box;
       display: flex;
       flex-direction: row;
       justify-content: center;
