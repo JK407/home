@@ -1,9 +1,10 @@
 version: '3'
 
 services:
-  app:
+  oberl-home:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "12445:12445"
+      - "0.0.0.0:26003:26003"
+    restart: unless-stopped
