@@ -36,10 +36,15 @@ const emit = defineEmits(["loadComplete"]);
 // 请依据文件夹内的图片个数修改 Math.random() 后面的第一个数字
 const bgRandom = Math.floor(Math.random() * 10 + 1);
 
+// 判断是否为移动端
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+  navigator.userAgent,
+) || window.innerWidth <= 768;
+
 // 更换壁纸链接
 const changeBg = (type) => {
   if (type == 0) {
-    bgUrl.value = "/images/background-custom.jpg";
+    bgUrl.value = isMobile ? "/images/mobile-background.jpg" : "/images/background-custom.jpg";
   } else if (type == 1) {
     bgUrl.value = "https://api.dujin.org/bing/1920.php";
   } else if (type == 2) {
