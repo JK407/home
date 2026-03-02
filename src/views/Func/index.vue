@@ -139,20 +139,16 @@ onBeforeUnmount(() => {
   font-display: swap;
 }
 .function {
-  position: fixed;
-  top: 11vh;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
   width: 100%;
-  max-width: 1200px;
-  padding: 0 1.5rem;
-  z-index: 3;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0;
   display: flex;
   justify-content: center;
   pointer-events: none;
   @media (max-width: 910px) {
-    top: 8vh;
-    padding: 0 1rem;
+    padding: 0;
   }
   .time-card {
     position: relative;

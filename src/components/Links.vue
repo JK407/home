@@ -86,6 +86,7 @@ onMounted(() => {
     font-size: 1.1rem;
     display: flex;
     align-items: center;
+    justify-content: center;
     animation: fade 0.5s;
     .title {
       margin-left: 8px;

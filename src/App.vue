@@ -16,15 +16,7 @@
           <MoreSet />
         </section>
       </div>
-      <!-- 移动端菜单按钮 -->
-      <Icon
-        class="menu"
-        size="24"
-        v-show="!store.backgroundShow"
-        @click="store.mobileOpenState = !store.mobileOpenState"
-      >
-        <component :is="store.mobileOpenState ? CloseSmall : HamburgerButton" />
-      </Icon>
+      <!-- 移动端菜单按钮（已移除，不再需要切换左右区域） -->
       <!-- 页脚 -->
       <Transition name="fade" mode="out-in">
         <Footer class="f-ter" v-show="!store.backgroundShow && !store.setOpenState" />
@@ -35,9 +27,7 @@
 
 <script setup>
 import { helloInit, checkDays } from "@/utils/getTime.js";
-import { HamburgerButton, CloseSmall } from "@icon-park/vue-next";
 import { mainStore } from "@/store";
-import { Icon } from "@vicons/utils";
 import Loading from "@/components/Loading.vue";
 import MainLeft from "@/views/Main/Left.vue";
 import MainRight from "@/views/Main/Right.vue";
@@ -111,12 +101,11 @@ onMounted(() => {
   const styleContent = "color: rgb(30,152,255);";
   const title1 = "毂梁の主页";
   const title2 = `
- _____ __  __  _______     ____     __
-|_   _|  \\/  |/ ____\\ \\   / /\\ \\   / /
-  | | | \\  / | (___  \\ \\_/ /  \\ \\_/ /
-  | | | |\\/| |\\___ \\  \\   /    \\   /
- _| |_| |  | |____) |  | |      | |
-|_____|_|  |_|_____/   |_|      |_|`;
+        _               _
+  ___  | |__   ___ _ __| |
+ / _ \\ | '_ \\ / _ \\ '__| |
+| (_) || |_) |  __/ |  | |
+ \\___/ |_.__/ \\___|_|  |_|`;
   const content = `\n\n版本: ${config.version}\n主页: ${config.home}\nGithub: ${config.github}`;
   console.info(`%c${title1} %c${title2} %c${content}`, styleTitle1, styleTitle2, styleContent);
 });
@@ -142,14 +131,15 @@ onBeforeUnmount(() => {
     height: 100vh;
     margin: 0 auto;
     padding: 0 0.5vw;
+    overflow-y: auto;
+    overflow-x: hidden;
     .all {
       width: 100%;
-      height: 100%;
-      padding: clamp(220px, 32vh, 340px) 0.75rem 0;
+      min-height: 100%;
+      padding: clamp(80px, 10vh, 160px) 0.75rem clamp(60px, 8vh, 100px);
       box-sizing: border-box;
       display: flex;
-      flex-direction: row;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
     }
     .more {
@@ -165,30 +155,6 @@ onBeforeUnmount(() => {
     }
     @media (max-width: 1200px) {
       padding: 0 2vw;
-    }
-  }
-  .menu {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 84%;
-    left: calc(50% - 28px);
-    width: 56px;
-    height: 34px;
-    background: rgb(0 0 0 / 20%);
-    backdrop-filter: blur(10px);
-    border-radius: 6px;
-    transition: transform 0.3s;
-    animation: fade 0.5s;
-    &:active {
-      transform: scale(0.95);
-    }
-    .i-icon {
-      transform: translateY(2px);
-    }
-    @media (min-width: 721px) {
-      display: none;
     }
   }
   @media (max-height: 720px) {
@@ -222,13 +188,6 @@ onBeforeUnmount(() => {
         }
       }
     }
-    .menu {
-      top: 605.64px; // 721px * 0.84
-      left: 170.5px; // 391 * 0.5 - 25px
-      @media (min-width: 391px) {
-        left: calc(50% - 25px);
-      }
-    }
     .f-ter {
       top: 675px; // 721px - 46px
       @media (min-width: 391px) {
@@ -236,16 +195,17 @@ onBeforeUnmount(() => {
       }
     }
   }
+  @media (max-width: 720px) {
+    transform: scale(1);
+  }
   @media (max-width: 390px) {
-    overflow-x: auto;
+    overflow-x: hidden;
     .container {
-      width: 391px;
-    }
-    .menu {
-      left: 167.5px; // 391px * 0.5 - 28px
+      width: 100%;
+      padding: 0 12px;
     }
     .f-ter {
-      width: 391px;
+      width: 100%;
     }
     @media (min-height: 721px) {
       overflow-y: hidden;
