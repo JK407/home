@@ -2,7 +2,7 @@
   {
     "icon": "Blog",
     "name": "博客",
-    "link": "https://blog.oberl.top/"
+    "link": "https://oberl.club/"
   },
   {
     "icon": "Cloud",
@@ -32,6 +32,6 @@
   {
     "icon": "LaptopCode",
     "name": "站点监测",
-    "link": "https://status.oberl.top/"
+    "link": "https://nezha.hackber.com/"
   }
 ]
