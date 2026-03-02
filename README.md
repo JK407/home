@@ -11,3 +11,7 @@ pnpm dev
 # 构建
 pnpm build
 ```
+
+docker compose up -d --build
+
+docker compose down
